@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/kuangtsao/actodolist#readme",
   "dependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "mongoose": "^6.1.6"
   }
 }
