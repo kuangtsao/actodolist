@@ -3,6 +3,12 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+// express related variable
+const exphbs = require('express-handlebars')
+
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', 'hbs')
+
 // mongo related variable
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/todo-list')
@@ -19,7 +25,7 @@ db.once('open', () => {
 
 // route
 app.get('/',(req, res) => {
-  res.send('Hello Express')
+  res.render('index')
 })
 
 app.listen(port, () => {
