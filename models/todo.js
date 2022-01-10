@@ -6,3 +6,6 @@ const todoSchema = new Schema({
     required: true
   }
 })
+
+// 透過 module.exports 把這個 schema 輸出
+module.exports = mongoose.model('Todo', todoSchema)
