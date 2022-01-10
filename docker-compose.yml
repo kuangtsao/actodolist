@@ -7,8 +7,5 @@ services:
     volumes:
     - ./mongodb/configdb:/data/configdb
     - ./mongodb/db:/data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: rootpwd
     ports:
     - 27017:27017
