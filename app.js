@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-// express related variable
+// express-handlebars related variable
 const exphbs = require('express-handlebars')
 
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
@@ -23,9 +23,15 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
+// 載入 todo model
+const Todo = require('./models/todo')
+
 // route
 app.get('/',(req, res) => {
-  res.render('index')
+  Todo.find() // 取出 Todo model 裡的所有資料
+    .lean() // 把 mongoose 的 Model 物件轉換成乾淨的 Javascript 資料陣列
+    .then(todos => res.render('index', { todos })) // 將資料傳給 index 樣板
+    .catch(error => console.error(error)) // 錯誤處理
 })
 
 app.listen(port, () => {
