@@ -51,6 +51,14 @@ app.post('/todos', (req, res) => {
 
 })
 
+app.get('/todos/:id', (req, res) => {
+  const id = req.params.id
+  return Todo.findById(id)
+    .lean()
+    .then((todo) => res.render('detail', { todo }))
+    .catch(error => console.error(error))
+})
+
 app.listen(port, () => {
   console.log(`todo-list is running on http://localhost:${port}`)
 })
