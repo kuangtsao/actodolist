@@ -9,6 +9,11 @@ const exphbs = require('express-handlebars')
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
+// body parser
+const bodyParser = require('body-parser')
+// 用 app.use 規定每一筆請求都需要通過 body-parser 進行前置處理
+app.use(bodyParser.urlencoded({ extended: true }))
+
 // mongo related variable
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/todo-list')
@@ -32,6 +37,18 @@ app.get('/',(req, res) => {
     .lean() // 把 mongoose 的 Model 物件轉換成乾淨的 Javascript 資料陣列
     .then(todos => res.render('index', { todos })) // 將資料傳給 index 樣板
     .catch(error => console.error(error)) // 錯誤處理
+})
+
+app.get('/todos/new', (req, res) => {
+  return res.render('new')
+})
+
+app.post('/todos', (req, res) => {
+  const name = req.body.name  // 從 req.body 拿出表單裡的 name 資料
+  return Todo.create({ name }) // 存入資料庫
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+
 })
 
 app.listen(port, () => {
