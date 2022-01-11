@@ -79,6 +79,14 @@ app.post('/todos/:id/edit', (req, res) => {
     .catch(error => console.error(error))
 })
 
+app.post('/todos/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Todo.findById(id)
+    .then(todo => todo.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 app.listen(port, () => {
   console.log(`todo-list is running on http://localhost:${port}`)
 })
