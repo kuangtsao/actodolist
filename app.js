@@ -36,70 +36,10 @@ db.once('open', () => {
 // 載入 todo model
 const Todo = require('./models/todo')
 
-// route
-app.get('/', (req, res) => {
-  Todo.find() // 取出 Todo model 裡的所有資料
-    .lean() // 把 mongoose 的 Model 物件轉換成乾淨的 Javascript 資料陣列
-    .sort({ _id: 'asc' }) // 根據 _id 做升冪
-    .then(todos => res.render('index', { todos })) // 將資料傳給 index 樣板
-    .catch(error => console.error(error)) // 錯誤處理
-})
-
-app.get('/todos/new', (req, res) => {
-  return res.render('new')
-})
-
-app.post('/todos', (req, res) => {
-  const name = req.body.name // 從 req.body 拿出表單裡的 name 資料
-  return Todo.create({ name }) // 存入資料庫
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
-
-app.get('/todos/:id', (req, res) => {
-  const id = req.params.id
-  return Todo.findById(id)
-    .lean()
-    .then((todo) => res.render('detail', { todo }))
-    .catch(error => console.error(error))
-})
-
-app.get('/todos/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Todo.findById(id)
-    .lean()
-    .then((todo) => res.render('edit', { todo }))
-    .catch(error => console.error(error))
-})
-
-app.put('/todos/:id', (req, res) => {
-  const id = req.params.id
-  const { name, isDone } = req.body
-  return Todo.findById(id)
-    .then(todo => {
-      todo.name = name
-      todo.isDone = isDone === 'on'
-      // 相等於
-      /* 要注意 checkbox 打勾起來 -> on
-        if (isDone === 'on') {
-          todo.isDone = true
-        } else {
-          todo.isDone = false
-        }
-      */
-      return todo.save() // 非同步的事情盡量用 return
-    })
-    .then(() => res.redirect(`/todos/${id}`))
-    .catch(error => console.error(error))
-})
-
-app.delete('/todos/:id', (req, res) => {
-  const id = req.params.id
-  return Todo.findById(id)
-    .then(todo => todo.remove())
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
+// 引用路由器
+const routes = require('./routes')
+// 將 request 導入路由器
+app.use(routes)
 
 app.listen(port, () => {
   console.log(`todo-list is running on http://localhost:${port}`)
