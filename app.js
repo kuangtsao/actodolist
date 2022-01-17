@@ -68,10 +68,19 @@ app.get('/todos/:id/edit', (req, res) => {
 
 app.post('/todos/:id/edit', (req, res) => {
   const id = req.params.id
-  const name = req.body.name
+  const { name, isDone } = req.body
   return Todo.findById(id)
     .then(todo => {
       todo.name = name
+      todo.isDone = isDone === 'on'
+      // 相等於
+      /* 要注意 checkbox 打勾起來 -> on
+        if (isDone === 'on') {
+          todo.isDone = true
+        } else {
+          todo.isDone = false
+        }
+      */
       return todo.save() // 非同步的事情盡量用 return
     })
     .then(() => res.redirect(`/todos/${id}`))
