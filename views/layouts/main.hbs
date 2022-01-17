@@ -4,9 +4,22 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css' integrity='sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==' crossorigin='anonymous'/>
+  <title>Todo List</title>
 </head>
-<body>
-  {{{ body }}}
+<body class="bg-light">
+  <header>
+    <nav class="navbar navbar-dark justify-content-between" style="padding: 8px 16px; background-color:#e95420;">
+      <a class="navbar-brand" href="/">Todo List</a>
+      <a class="btn btn-outline-light" href="/todos/new">Create</a>
+    </nav>
+  </header>
+  <main>
+    <div class="container mt-3">
+      {{{ body }}}
+    </div>
+  </main>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.3/cjs/popper.min.js' integrity='sha512-6wXFd1TrY1aTBRF9907pk+2I5dBRYyi6OYkcuLgD+g4aYdieY8z/3Of0eklpgAz3ykJUkTEMsVRufL6BtCbgYA==' crossorigin='anonymous'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js' integrity='sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==' crossorigin='anonymous'></script>
 </body>
 </html>
