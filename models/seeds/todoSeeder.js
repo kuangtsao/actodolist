@@ -1,6 +1,7 @@
-require('../../config/mongoose')
+const db = require('../../config/mongoose')
 // 載入 todo-list
 const Todo = require('../todo')
+
 
 db.once('open', () => {
   console.log('insert seeds to mongo')
