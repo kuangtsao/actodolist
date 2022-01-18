@@ -1,7 +1,7 @@
 // express related variables
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 // express-handlebars related variable
 const exphbs = require('express-handlebars')

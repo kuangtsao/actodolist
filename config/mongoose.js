@@ -1,6 +1,7 @@
 // mongo related variable
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/todo-list', { useNewUrlParser: true, useUnifiedTopology: true })
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/todo-list'
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const db = mongoose.connection
 
@@ -9,5 +10,5 @@ db.on('error', () => {
 })
 
 db.once('open', () => {
-  console.log('mongodb connected!')
+  console.log(`mongodb connected!${MONGODB_URI}`)
 })
