@@ -9,6 +9,15 @@ const exphbs = require('express-handlebars')
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
+// session
+const session = require('express-session')
+
+app.use(session({
+  secret: 'HowDoYouTurnThisOn',
+  resave: false,
+  saveUninitialized: true
+}))
+
 // body parser
 const bodyParser = require('body-parser')
 // 用 app.use 規定每一筆請求都需要通過 body-parser 進行前置處理
