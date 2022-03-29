@@ -34,6 +34,11 @@ require('./config/mongoose')
 // 載入 todo model
 const Todo = require('./models/todo')
 
+// 載入 passport
+const usePassport = require('./config/passport')
+
+usePassport(app)
+
 // 引用路由器
 const routes = require('./routes')
 // 將 request 導入路由器
