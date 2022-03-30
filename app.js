@@ -39,6 +39,17 @@ const usePassport = require('./config/passport')
 
 usePassport(app)
 
+// 判斷是否為登入狀態的 middleware，可以作用於所有的路由
+app.use((req, res, next) => {
+  // console.log(req.user)
+  // return boolean
+  // 將有需要利用到的資料丟給 res 才有辦法丟給前端使用
+  // res.local 裡的資料可以給所有的 view 存取(express 功能)
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
+
 // 引用路由器
 const routes = require('./routes')
 // 將 request 導入路由器
