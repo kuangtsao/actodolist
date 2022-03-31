@@ -39,6 +39,11 @@ const usePassport = require('./config/passport')
 
 usePassport(app)
 
+// 載入 connect-flash，一閃而過的訊息用
+
+const flash = require('connect-flash')
+app.use(flash()) // 掛載套件
+
 // 判斷是否為登入狀態的 middleware，可以作用於所有的路由
 app.use((req, res, next) => {
   // console.log(req.user)
@@ -47,6 +52,8 @@ app.use((req, res, next) => {
   // res.local 裡的資料可以給所有的 view 存取(express 功能)
   res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
+  res.locals.success_msg = req.flash('success_msg')  // 設定 success_msg 訊息
+  res.locals.warning_msg = req.flash('warning_msg')  // 設定 warning_msg 訊息
   next()
 })
 
