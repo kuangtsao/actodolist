@@ -1,7 +1,13 @@
+// 載入環境變數
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
+
 // express related variables
 const express = require('express')
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 
 // express-handlebars related variable
 const exphbs = require('express-handlebars')
@@ -13,7 +19,7 @@ app.set('view engine', 'hbs')
 const session = require('express-session')
 
 app.use(session({
-  secret: 'HowDoYouTurnThisOn',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
